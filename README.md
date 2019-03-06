@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-HolyWar это студенческий проект.
+Avios это студенческий проект.
 
 ### Технологии
 
@@ -26,11 +26,11 @@ $ sudo apt install git openjdk-11-jre-headless maven mariadb-server
 
 Установка и сборка проекта
 ```sh
-$ git clone https://github.com/CyberDoge/HolyWar
-$ cd HolyWar
-$ mvn package && java -jar target/HolyWar-0.0.1-SNAPSHOT.jar
+$ git clone https://github.com/CyberDoge/Avios
+$ cd Avios
+$ mvn package && java -jar target/Avios-0.0.1-SNAPSHOT.jar
 ```
-Переходим в браузере по адресу localhost:8080/hello
+Переходим в браузере по адресу localhost:8080/Avios
 
 ### Разработка
 
@@ -45,7 +45,7 @@ $ mvn package && java -jar target/HolyWar-0.0.1-SNAPSHOT.jar
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
 
-   [git-repo-url]: <https://github.com/CyberDoge/HolyWar>
+   [git-repo-url]: <https://github.com/CyberDoge/Avios>
    [Spring]: <https://spring.io>
    [MySql]: <https://www.mysql.com/>
    [Maven]: <https://maven.apache.org/>
