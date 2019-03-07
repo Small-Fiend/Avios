@@ -21,7 +21,7 @@ public class UserDao {
     }
 
     public boolean contains(String username) {
-        return users.stream().findAny().filter(user-> Objects.equals(user.getUsername(), username)).isPresent();
+        return users.stream().anyMatch(user-> Objects.equals(user.getUsername(), username));
     }
 
     public User get(String username) {

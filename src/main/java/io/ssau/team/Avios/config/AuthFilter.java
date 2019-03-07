@@ -49,7 +49,6 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
 
         AuthenticationToken token = new AuthenticationToken(tokenValue);
         token.setDetails(authenticationDetailsSource.buildDetails(request));
-
         return this.getAuthenticationManager().authenticate(token);
     }
 
