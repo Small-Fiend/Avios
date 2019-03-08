@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
-public class AuthFilter extends AbstractAuthenticationProcessingFilter {
-    private static final String TOKEN_HEADER = "x-auth-token";
+import static io.ssau.team.Avios.param.Header.TOKEN;
 
+public class AuthFilter extends AbstractAuthenticationProcessingFilter {
 
     AuthFilter(RequestMatcher requestMatcher) {
         super(requestMatcher);
@@ -54,7 +54,7 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
 
     private String getTokenValue(HttpServletRequest req) {
         return Collections.list(req.getHeaderNames()).stream()
-                .filter(header -> header.equalsIgnoreCase(TOKEN_HEADER))
+                .filter(header -> header.equalsIgnoreCase(TOKEN))
                 .map(req::getHeader)
                 .findFirst()
                 .orElse(null);

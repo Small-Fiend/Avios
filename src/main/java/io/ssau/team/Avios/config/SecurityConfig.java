@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilterBefore(authFilter(), AnonymousAuthenticationFilter.class)
                 .authorizeRequests().anyRequest().authenticated().and()
+                .antMatcher("/login").anonymous().and()
+                .antMatcher("/register").anonymous().and()
                 .csrf().disable();
     }
 
@@ -37,8 +39,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private AbstractAuthenticationProcessingFilter authFilter() throws Exception {
         AuthFilter filter = new AuthFilter(new NegatedRequestMatcher(
-                new AndRequestMatcher(new AntPathRequestMatcher("/login"))
-        ));
+                new AndRequestMatcher(
+                        new AntPathRequestMatcher("/register"),
+                        new AntPathRequestMatcher("/login")
+                )));
         filter.setAuthenticationManager(authenticationManagerBean());
         return filter;
     }
