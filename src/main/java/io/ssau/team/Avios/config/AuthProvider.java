@@ -38,6 +38,11 @@ public class AuthProvider implements AuthenticationProvider {
 
         final User user = userDao.get(username);
 
+        return createAuthenticationToken(token, user);
+    }
+
+
+    public AuthenticationToken createAuthenticationToken(String token, User user){
         AuthenticationToken authenticationToken = new AuthenticationToken(token, user);
         authenticationToken.setAuthenticated(true);
         return authenticationToken;

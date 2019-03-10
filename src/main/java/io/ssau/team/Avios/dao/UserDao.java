@@ -26,4 +26,10 @@ public class UserDao {
     public User get(String username) {
         return users.stream().filter(user-> user.getUsername().equalsIgnoreCase(username)).findAny().orElse(null);
     }
+
+    public User create(String username) {
+        User user = new User(users.size()+1, username);
+        users.add(user);
+        return user;
+    }
 }

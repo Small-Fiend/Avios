@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAt(authFilter(), AnonymousAuthenticationFilter.class)
                 .authorizeRequests().antMatchers("/login").permitAll().and()
                 .authorizeRequests().antMatchers("/register").permitAll().and()
-                .authorizeRequests().antMatchers("").authenticated().and()
+                .authorizeRequests().antMatchers("/**").authenticated().and()
                 .csrf().disable();
     }
 

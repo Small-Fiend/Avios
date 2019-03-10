@@ -23,9 +23,8 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity auth(@RequestHeader(TOKEN) String token, @RequestHeader(USERNAME) String username) {
-        authService.authUser(token, username);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity auth(@RequestHeader(USERNAME) String username) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(authService.registerUser(username));
     }
 
     @GetMapping("/login")
