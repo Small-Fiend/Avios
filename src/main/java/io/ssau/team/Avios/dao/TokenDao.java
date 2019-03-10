@@ -24,4 +24,9 @@ public class TokenDao {
     public String get(String token) {
         return tokens.get(token);
     }
+
+    public String create(String token, String username){
+        tokens.put(token, username);
+        return username;
+    }
 }

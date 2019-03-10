@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Repository
@@ -21,10 +20,16 @@ public class UserDao {
     }
 
     public boolean contains(String username) {
-        return users.stream().anyMatch(user-> Objects.equals(user.getUsername(), username));
+        return users.stream().anyMatch(user-> user.getUsername().equalsIgnoreCase(username));
     }
 
     public User get(String username) {
-        return users.stream().findAny().filter(user-> Objects.equals(user.getUsername(), username)).orElse(null);
+        return users.stream().filter(user-> user.getUsername().equalsIgnoreCase(username)).findAny().orElse(null);
+    }
+
+    public User create(String username) {
+        User user = new User(users.size()+1, username);
+        users.add(user);
+        return user;
     }
 }
