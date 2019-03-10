@@ -9,9 +9,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AnonymousAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AndRequestMatcher;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
+import org.springframework.security.web.util.matcher.OrRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -24,25 +24,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(authFilter(), AnonymousAuthenticationFilter.class)
-                .authorizeRequests().anyRequest().authenticated().and()
-                .antMatcher("/login").anonymous().and()
-                .antMatcher("/register").anonymous().and()
+                .addFilterAt(authFilter(), AnonymousAuthenticationFilter.class)
+                .authorizeRequests().antMatchers("/login").permitAll().and()
+                .authorizeRequests().antMatchers("/register").permitAll().and()
+                .authorizeRequests().antMatchers("").authenticated().and()
                 .csrf().disable();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
     }
 
 
     private AbstractAuthenticationProcessingFilter authFilter() throws Exception {
-        AuthFilter filter = new AuthFilter(new NegatedRequestMatcher(
-                new AndRequestMatcher(
-                        new AntPathRequestMatcher("/register"),
-                        new AntPathRequestMatcher("/login")
-                )));
+        AuthFilter filter = new AuthFilter(new AntPathRequestMatcher("/login"));
         filter.setAuthenticationManager(authenticationManagerBean());
         return filter;
     }

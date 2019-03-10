@@ -24,6 +24,6 @@ public class UserDao {
     }
 
     public User get(String username) {
-        return users.stream().findAny().filter(user-> user.getUsername().equalsIgnoreCase(username)).orElse(null);
+        return users.stream().filter(user-> user.getUsername().equalsIgnoreCase(username)).findAny().orElse(null);
     }
 }
