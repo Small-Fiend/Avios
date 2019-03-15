@@ -17,12 +17,11 @@ public class AuthFilter extends AbstractAuthenticationProcessingFilter {
         super(requestMatcher);
         setAuthenticationSuccessHandler((request, response, authentication) ->
         {
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-//            request.getRequestDispatcher(request.getServletPath() + request.getPathInfo()).forward(request, response);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            request.getRequestDispatcher(request.getServletPath()).forward(request, response);
         });
         setAuthenticationFailureHandler((request, response, authenticationException) ->
-                response.getOutputStream().print(authenticationException.getMessage())
-        );
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage()));
     }
 
     @Override

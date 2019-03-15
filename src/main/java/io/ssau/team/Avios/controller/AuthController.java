@@ -4,12 +4,13 @@ import io.ssau.team.Avios.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
-import static io.ssau.team.Avios.param.Header.*;
+import static io.ssau.team.Avios.param.Header.USERNAME;
 
 @RestController
 public class AuthController {
@@ -23,13 +24,14 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity auth(@RequestHeader(USERNAME) String username) {
+    public ResponseEntity register(@RequestHeader(USERNAME) String username) {
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.registerUser(username));
     }
 
     @GetMapping("/login")
-    public ResponseEntity testLogin(@RequestHeader(TOKEN) String token) {
-        return ResponseEntity.status(HttpStatus.OK).body("login: " + token);
+    public ResponseEntity successLogin() {
+        return ResponseEntity.status(HttpStatus.OK).body("login: " +
+                SecurityContextHolder.getContext().getAuthentication().getName());
     }
 
 }
