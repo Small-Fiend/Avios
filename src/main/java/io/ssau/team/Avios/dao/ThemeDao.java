@@ -1,11 +1,13 @@
 package io.ssau.team.Avios.dao;
 
 import io.ssau.team.Avios.model.Theme;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ThemeDao {
     private static final List<Theme> themes = new ArrayList<>();
 
