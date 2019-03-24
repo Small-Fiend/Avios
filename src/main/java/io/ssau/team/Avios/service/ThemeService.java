@@ -8,15 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+
 @Service
 public class ThemeService {
 
     private ThemeDao themeDao;
 
     @Autowired
-    public ThemeService(ThemeDao themeDao) {
-        this.themeDao = themeDao;
-    }
+    public ThemeService(ThemeDao themeDao) { this.themeDao = themeDao; }
 
     public ThemeJson createTheme(ThemeJson themeJson) {
         Theme theme = themeDao.create(new Theme(themeJson));
@@ -25,4 +25,29 @@ public class ThemeService {
         }
         return new ThemeJson(theme);
     }
+
+    public ArrayList<Theme> indexTheme(ThemeDao themeList, int index) {
+        ArrayList<Theme> list = new ArrayList<>();
+        if(index == 0){
+            list.add(themeList.getById(themeList.getSize() - 1));
+        } else if(index == 1) {
+            if(themeList.getSize() < 10){
+                list.addAll(themeList.getList());
+            } else {
+                for(int i = themeList.getSize() - 1; i > themeList.getSize() - 11; i--){
+                    list.add(themeList.getById(i));
+                }
+            }
+        }
+        return list;
+
+    }
+
+
+    /*
+    public ThemeDao indexTheme(ThemeDao themeList){
+        Theme list = themeDao.create().size();
+
+    }
+    */
 }
